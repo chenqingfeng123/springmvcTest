@@ -2,7 +2,10 @@ package com.cqf.config;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 //web容器配置类
 public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer {
@@ -23,5 +26,12 @@ public class ServletContainersInitConfig extends AbstractDispatcherServletInitia
     //加载spring配置类
     protected WebApplicationContext createRootApplicationContext() {
         return null;
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        return new Filter[]{characterEncodingFilter};
     }
 }
